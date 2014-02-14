@@ -2,7 +2,7 @@ package br.com.caelum.banco.conta;
 
 import br.com.caelum.banco.sistema.Tributavel;
 
-public class ContaCorrente extends Conta implements Tributavel {
+public class ContaCorrente extends Conta implements Tributavel, Comparable<Conta> {
 	public void deposita(double valor) {
 		this.saldo += valor - 0.10;
 	}
@@ -14,8 +14,21 @@ public class ContaCorrente extends Conta implements Tributavel {
 	}
 
 	@Override
-	public double calculaTributos() {
-		return this.getSaldo() * 0.01;
+	public int compareTo(Conta o) {
+		if(this.getNumero() < o.getNumero())
+			return -1;		
+		else if(this.getNumero() > o.getNumero())
+			return 1;		
+		else
+			return 0;
 	}
+
+	@Override
+	public double calculaTributos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 }

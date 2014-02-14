@@ -7,6 +7,7 @@ public abstract class Conta {
 	protected double saldo;
 	private double numero;
 	private String nome;
+		
 
 	public void setNumero(double numero) {
 		this.numero = numero;
@@ -15,14 +16,30 @@ public abstract class Conta {
 	public double getNumero() {
 		return this.numero;
 	}
-
+		
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(numero);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+		
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Conta) {
-			return ((Conta) obj).numero == this.numero
-					& ((Conta) obj).nome == this.nome;
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (Double.doubleToLongBits(numero) != Double
+				.doubleToLongBits(other.numero))
+			return false;
+		return true;
 	}
 
 	public void deposita(double valor) {
